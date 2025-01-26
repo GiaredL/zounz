@@ -1,0 +1,105 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 47px;
+  background: #0b0b0b;
+}
+
+body {
+  font-family: Tahoma, Verdana;
+  background: #0b0b0b;
+  color: white;
+  min-width: 360px;
+  min-height: 98vh;
+  min-height: 98svh;
+  -webkit-hyphens: none;
+  -moz-hyphens: none;
+  -ms-hyphens: none;
+  hyphens: none;
+  -webkit-font-smoothing: antialiased;
+
+  &.modal--disable {
+    overflow: hidden;
+  }
+}
+
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: Tahoma, Verdana;
+  margin: 20px 0;
+}
+
+h1 {
+  font-family: 'Trebuchet MS', Helvetica;
+}
+
+p {
+  margin: 10px 0;
+  line-height: 1.6;
+}
+
+a {
+  text-decoration: none;
+  color: black;
+}
+
+i {
+  display: flex !important;
+  justify-content: center;
+  align-items: center;
+  width: 20px;
+  height: 20px;
+}
+
+section {
+  display: block;
+  width: 100%;
+  background-repeat: no-repeat;
+  -moz-background-repeat: no-repeat;
+  -o-background-repeat: no-repeat;
+  -ms-background-repeat: no-repeat;
+  background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  -ms-background-size: cover;
+  background-position: center center;
+  -moz-background-position: center center;
+  -o-background-position: center center;
+  -ms-background-position: center center;
+}
+
+select:not(:disabled) {
+  cursor: pointer;
+}
+
+.overlay {
+  width: 100%;
+}
+
+::-webkit-scrollbar {
+  height: 5px;
+  width: 5px;
+}
+::-webkit-scrollbar-track {
+  border-radius: 5px;
+}
+::-webkit-scrollbar-corner {
+  border-radius: 5px;
+}
+::-webkit-scrollbar-thumb {
+  border-radius: 5px;
+}
