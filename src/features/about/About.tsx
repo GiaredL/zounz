@@ -1,4 +1,3 @@
-import React from 'react'
 import { Header } from '../../layouts/features'
 import HeroSection from '../../components'
 import styles from './About.module.scss'

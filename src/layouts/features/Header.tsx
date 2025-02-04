@@ -1,4 +1,3 @@
-import React from 'react'
 import styles from './Header.module.scss'
 import { Link } from 'react-router-dom'
 import { logo } from '../../assets'
@@ -14,6 +13,11 @@ const Header = () => {
         <button className={styles['header-button']}>
           <Link to="/about">
             <p>About</p>
+          </Link>
+        </button>
+        <button className={styles['header-button']}>
+          <Link to="/sign-in">
+            <p>Sign In</p>
           </Link>
         </button>
       </div>

@@ -1,0 +1,40 @@
+.sign-in {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  min-height: 100vh;
+
+  form {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    gap: 20px;
+
+    input {
+      width: 200px;
+      height: 30px;
+    }
+  }
+
+  button {
+    margin-top: 1rem;
+    width: 100px;
+    border: none;
+    border-radius: 8px;
+    height: 50px;
+    cursor: pointer;
+    transition: all 0.1s;
+
+    &:hover {
+      background-color: #898989;
+    }
+
+    .back-button {
+      position: fixed;
+      top: 40;
+      left: 40;
+      right: 200;
+    }
+  }
+}

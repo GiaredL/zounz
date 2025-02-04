@@ -1,0 +1,12 @@
+{
+  "folders": [
+	{
+		"name": "zounz",
+		"path": "."
+	},
+	{
+		"path": "../zounz-server"
+	}
+],
+  "settings": {}
+}
