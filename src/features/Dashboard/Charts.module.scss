@@ -1,0 +1,9 @@
+.charts-container {
+  width: calc(50% - 10px);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  max-height: calc(100vh - 80px); /* Subtract header height */
+  overflow-y: auto;
+  padding: 20px;
+}

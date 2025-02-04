@@ -1,0 +1,15 @@
+.dashboard-wrapper {
+  position: fixed;
+  top: 80px; // Adjust this value to match your header height
+  left: 0;
+  right: 0;
+  bottom: 0;
+  margin: 20px;
+  overflow: hidden;
+}
+
+.dashboard-container {
+  display: flex;
+  justify-content: space-between;
+  padding: 20px;
+}
