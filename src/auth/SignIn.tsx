@@ -1,7 +1,6 @@
-import { Link, useNavigate } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import styles from './SignIn.module.scss'
 import { useState } from 'react'
-import SignUp from './SignUp'
 
 const SignIn = () => {
   const [userName, setUserName] = useState('')

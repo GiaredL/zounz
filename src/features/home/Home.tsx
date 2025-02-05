@@ -6,11 +6,12 @@ const Home = () => {
   return (
     <>
       <div className={styles.home}>
-        <Header />
-        <HeroSection
-          title="Hey, welcome to ZounZ, the place to discover local artists!"
-          description="Check back soon! In the meantime, try the about page."
-        />
+        <Header>
+          <HeroSection
+            title="Hey, welcome to ZounZ, the place to discover local artists!"
+            description="Check back soon! In the meantime, try the about page."
+          />
+        </Header>
       </div>
     </>
   )
