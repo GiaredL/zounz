@@ -18,7 +18,7 @@ const ChartItem: FC<IChartItemProps> = ({ user, rank }) => {
       }}
     >
       <div className={styles['item-details']}>
-        <h1>{user.name}</h1>
+        <p>{user.name}</p>
         <p>Streams: {user.streams}</p>
       </div>
       <div className={styles['rank']}>

@@ -1,7 +1,7 @@
 .chart-item {
   margin: 10px 0;
   padding: 20px;
-  height: 130px;
+  height: 70px;
   flex-shrink: 0;
   border-radius: 6px;
   background: linear-gradient(324deg, rgba(0, 14, 36, 1) 0%, rgba(72, 9, 121, 1) 41%, rgba(9, 16, 121, 1) 81%);
@@ -18,8 +18,9 @@
   width: 50%;
 
   h1 {
-    margin-bottom: 0;
-    font-size: 56px;
+    margin-bottom: 0px;
+    font-size: 16px;
+    margin-top: 0;
   }
 }
 
@@ -28,8 +29,4 @@
   justify-content: center;
   width: 10%;
   align-items: center;
-
-  h1 {
-    font-size: 66px;
-  }
 }
