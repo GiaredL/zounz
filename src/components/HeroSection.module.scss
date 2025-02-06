@@ -4,7 +4,12 @@
   align-items: center;
   width: 80%;
   height: auto;
-  background: linear-gradient(324deg, rgba(0, 14, 36, 1) 0%, rgba(72, 9, 121, 1) 41%, rgba(9, 16, 121, 1) 81%);
+  background: linear-gradient(
+    324deg,
+    rgba(0, 14, 36, 1) 0%,
+    rgba(72, 9, 121, 1) 41%,
+    rgba(9, 16, 121, 1) 81%
+  );
   border-radius: 20px;
   margin: 120px 0 60px 0;
   overflow-y: auto;
