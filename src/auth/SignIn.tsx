@@ -1,26 +1,42 @@
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import styles from './SignIn.module.scss'
 import { useState } from 'react'
+import { useAuth } from '../context/useAuth'
 
 const SignIn = () => {
   const [userName, setUserName] = useState('')
   const [password, setPassword] = useState('')
-  // const [error, setError] = useState('')
-  // const navigate = useNavigate()
+  const [error, setError] = useState('')
+  const navigate = useNavigate()
+  const { login } = useAuth()
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    // const user = users.find(user => {
-    //   return user.username === userName && user.password === password
-    // })
+    setError('')
 
-    // if (user) {
-    //   localStorage.setItem('user', JSON.stringify(user))
-    //   navigate('/')
-    // } else {
-    //   setError('Invalid username or password')
-    // }
+    try {
+      const response = await fetch('http://localhost:5000/api/session/signin', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        credentials: 'include',
+        body: JSON.stringify({ userName, password })
+      })
+
+      const data = await response.json()
+
+      if (response.ok) {
+        login(data.user)
+        navigate('/dashboard')
+      } else {
+        setError(data.message || 'Invalid credentials')
+      }
+    } catch (err) {
+      setError('Failed to connect to server')
+    }
   }
+
   return (
     <div className={styles['sign-in']}>
       <form onSubmit={handleSubmit}>
@@ -28,7 +44,12 @@ const SignIn = () => {
           <Link to="/">Go Back</Link>
         </button>
         <h1>Sign In</h1>
-        <input type="" placeholder="email..." value={userName} onChange={e => setUserName(e.target.value)} />
+        <input
+          type="text"
+          placeholder="username..."
+          value={userName}
+          onChange={e => setUserName(e.target.value)}
+        />
         <input
           type="password"
           placeholder="password..."
@@ -37,7 +58,7 @@ const SignIn = () => {
         />
         <button type="submit">Sign In</button>
       </form>
-      {/* {error && <p className={styles.error}>{error}</p>} */}
+      {error && <p className={styles.error}>{error}</p>}
     </div>
   )
 }

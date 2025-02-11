@@ -1,16 +1,9 @@
 .hero {
   display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 80%;
+  width: 70%;
   height: auto;
-  background: linear-gradient(
-    324deg,
-    rgba(0, 14, 36, 1) 0%,
-    rgba(72, 9, 121, 1) 41%,
-    rgba(9, 16, 121, 1) 81%
-  );
-  border-radius: 20px;
+  background: linear-gradient(324deg, rgba(0, 14, 36, 1) 0%, rgba(72, 9, 121, 1) 41%, rgba(9, 16, 121, 1) 81%);
+  border-radius: 6px;
   margin: 120px 0 60px 0;
   overflow-y: auto;
   max-height: calc(100vh - 120px);
@@ -60,5 +53,23 @@
   @media (max-width: 768px) {
     width: 90%;
     margin: 100px 0 40px 0;
+  }
+}
+
+.artist {
+  display: flex;
+  gap: 20px;
+  margin: 20px;
+
+  img {
+    height: 200px;
+    width: 200px;
+    object-fit: contain;
+    width: auto;
+    border-radius: 6px;
+  }
+
+  h1 {
+    font-size: 3rem;
   }
 }

@@ -2,10 +2,7 @@ import styles from './Header.module.scss'
 import { Link } from 'react-router-dom'
 import { logo } from '../../assets'
 
-interface HeaderProps {
-  children: React.ReactNode
-}
-const Header = ({ children }: HeaderProps) => {
+const Header = () => {
   return (
     <>
       <div className={styles.header}>
@@ -32,7 +29,6 @@ const Header = ({ children }: HeaderProps) => {
           </button>
         </div>
       </div>
-      <main>{children}</main>
     </>
   )
 }

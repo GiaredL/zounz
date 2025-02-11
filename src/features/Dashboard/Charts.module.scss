@@ -1,12 +1,9 @@
 .charts-container {
-  width: calc(30% - 10px);
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   max-height: calc(100vh - 80px); /* Subtract header height */
   overflow-y: auto;
-  background-color: rgb(24, 24, 24);
-  padding: 20px;
   border-radius: 6px;
 
   @media (max-width: 700px) {

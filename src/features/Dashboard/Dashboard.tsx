@@ -1,20 +1,23 @@
-import { Header } from "../../layouts/features";
-import Charts from "./Charts";
-import Map from "./Map";
-import styles from "./Dashboard.module.scss";
-import UserSearch from "./UserSearch";
-const Dashboard = () => {
-  return (
-    <Header>
-      <div className={styles["dashboard-wrapper"]}>
-        <div className={styles["dashboard-container"]}>
-          <UserSearch />
-          {/* <Charts /> */}
-          <Map />
-        </div>
-      </div>
-    </Header>
-  );
-};
+import { FC } from 'react'
+import Charts from './Charts'
+import styles from './Dashboard.module.scss'
+// import UserSearch from './UserSearch'
 
-export default Dashboard;
+interface DashboardProps {
+  setSelectedArtist: (artist: any) => void
+}
+const Dashboard: FC<DashboardProps> = ({ setSelectedArtist }) => {
+  return (
+    <div className={styles['dashboard-wrapper']}>
+      <div className={styles['dashboard-container']}>
+        {/* <UserSearch /> */}
+        <div>
+          <h2>Top 10 Artists in your city</h2>
+        </div>
+        <Charts setSelectedArtist={setSelectedArtist} />
+      </div>
+    </div>
+  )
+}
+
+export default Dashboard

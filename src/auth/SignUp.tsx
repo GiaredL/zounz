@@ -1,4 +1,6 @@
 import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
+import { useAuth } from '../context/useAuth'
 
 const SignUp = () => {
   const [formData, setFormData] = useState({
@@ -9,6 +11,8 @@ const SignUp = () => {
   })
   const [error, setError] = useState('')
   const [loading, setLoading] = useState(false)
+  const navigate = useNavigate()
+  const { login } = useAuth()
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target
@@ -41,16 +45,23 @@ const SignUp = () => {
 
     setLoading(true)
     try {
-      const response = await fetch('http://localhost:5000/api/signup', {
+      const response = await fetch('http://localhost:5000/api/users/signup', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify(formData)
+        credentials: 'include',
+        body: JSON.stringify({
+          username: formData.username,
+          email: formData.email,
+          password: formData.password
+        })
       })
 
       const data = await response.json()
       if (response.ok) {
+        login(data.user)
+        navigate('/dashboard')
       } else {
         setError(data.message || 'Sign-up failed')
       }
