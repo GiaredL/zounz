@@ -1,10 +1,20 @@
 .dashboard-wrapper {
   width: 30%;
   margin: 20px;
+
+  @media (max-width: 768px) {
+    width: 100%;
+    margin: 0px;
+  }
 }
 
 .dashboard-container {
   display: flex;
   flex-direction: column;
   gap: 20px;
+
+  @media (max-width: 500px) {
+    height: 400px;
+    gap: 0px;
+  }
 }

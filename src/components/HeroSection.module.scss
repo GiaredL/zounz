@@ -2,12 +2,22 @@
   display: flex;
   width: 70%;
   height: auto;
-  background: linear-gradient(324deg, rgba(0, 14, 36, 1) 0%, rgba(72, 9, 121, 1) 41%, rgba(9, 16, 121, 1) 81%);
+  background: linear-gradient(
+    324deg,
+    rgba(0, 14, 36, 1) 0%,
+    rgba(72, 9, 121, 1) 41%,
+    rgba(9, 16, 121, 1) 81%
+  );
   border-radius: 6px;
   margin: 120px 0 60px 0;
   overflow-y: auto;
   max-height: calc(100vh - 120px);
   min-height: 400px;
+
+  @media (max-width: 768px) {
+    width: 100%;
+    margin: 40px 0 40px 0;
+  }
 
   .hello {
     display: flex;
@@ -50,10 +60,6 @@
       }
     }
   }
-  @media (max-width: 768px) {
-    width: 90%;
-    margin: 100px 0 40px 0;
-  }
 }
 
 .artist {
@@ -63,6 +69,40 @@
   padding: 30px;
   margin: 20px;
   gap: 60px;
+
+  @media (max-width: 768px) {
+    // flex-direction: column;
+    text-align: center;
+    padding: 0px;
+    gap: 20px;
+
+    .artistDetails {
+      width: 100%;
+
+      h1 {
+        font-size: 2rem;
+      }
+
+      p {
+        font-size: 0.8rem;
+      }
+
+      .artistLocation {
+        display: flex;
+        gap: 0px;
+      }
+    }
+
+    .artist-bio {
+      width: 100%;
+      margin-top: 0px !important;
+
+      img {
+        height: 100px !important;
+        width: 100px !important;
+      }
+    }
+  }
 
   .artistDetails {
     display: flex;
@@ -98,7 +138,6 @@
   }
 
   .artist-bio {
-    display: flex;
     flex-direction: column;
     width: 40%;
     margin-top: 20px;
