@@ -2,9 +2,10 @@ import styles from './Charts.module.scss'
 import { testUsers } from '../../testUsers'
 import ChartItem from './ChartItem'
 import { FC } from 'react'
+import { ITestUsers } from '../../types/models/ITestUsers'
 
 interface ChartsProps {
-  setSelectedArtist: (artist: any) => void
+  setSelectedArtist: (artist: ITestUsers | null) => void
 }
 
 const Charts: FC<ChartsProps> = ({ setSelectedArtist }) => {

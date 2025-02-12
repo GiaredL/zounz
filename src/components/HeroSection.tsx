@@ -1,13 +1,15 @@
 import React, { FC } from 'react'
 import styles from './HeroSection.module.scss'
 import { morpho } from '../assets'
+import { ITestUsers } from '../types/models/ITestUsers'
+import SongItem from './SongItem'
 
 interface HeroSectionProps {
   title?: string
   subheading?: string
   description?: string
   children?: React.ReactNode
-  selectedArtist?: any
+  selectedArtist?: ITestUsers | null
 }
 
 const HeroSection: FC<HeroSectionProps> = ({ title, description, subheading, children, selectedArtist }) => {
@@ -25,11 +27,29 @@ const HeroSection: FC<HeroSectionProps> = ({ title, description, subheading, chi
         </div>
       ) : (
         <div className={styles.artist}>
-          <img src={selectedArtist.image} alt={selectedArtist.name} />
           <div className={styles.artistDetails}>
-            <h1>{selectedArtist.name}</h1>
-            <p>Streams: {selectedArtist.streams}</p>
-            <h2>{selectedArtist.state}</h2>
+            <div>
+              <h1>{selectedArtist.name}</h1>
+              <div className={styles.artistInfo}>
+                <div className={styles.artistLocation}>
+                  <p>{selectedArtist.city}</p>
+                  <p>{selectedArtist.state}</p>
+                </div>
+                <p>Streams: {selectedArtist.streams}</p>
+              </div>
+            </div>
+            <div className={styles.artistSongs}>
+              {selectedArtist.songs.map(song => (
+                <SongItem key={song.id} selectedArtist={selectedArtist} song={song} />
+              ))}
+            </div>
+          </div>
+          <div className={styles['artist-bio']}>
+            <img src={selectedArtist.image} alt={selectedArtist.name} />
+            <div className={styles['artist-info']}>
+              <h3>{selectedArtist.name}</h3>
+              <p>{selectedArtist.bio}</p>
+            </div>
           </div>
         </div>
       )}

@@ -5,7 +5,7 @@ import styles from './ChartItem.module.scss'
 interface IChartItemProps {
   user: ITestUsers
   rank: number
-  setSelectedArtist: (artist: any) => void
+  setSelectedArtist: (artist: ITestUsers | null) => void
 }
 
 const ChartItem: FC<IChartItemProps> = ({ user, rank, setSelectedArtist }) => {
