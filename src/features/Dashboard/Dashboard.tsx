@@ -11,9 +11,6 @@ const Dashboard: FC<DashboardProps> = ({ setSelectedArtist }) => {
   return (
     <div className={styles['dashboard-wrapper']}>
       <div className={styles['dashboard-container']}>
-        <div>
-          <h2>Top 10 Artists in your city</h2>
-        </div>
         <Charts setSelectedArtist={setSelectedArtist} />
       </div>
     </div>

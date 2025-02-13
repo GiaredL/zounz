@@ -1,6 +1,5 @@
 .dashboard-wrapper {
-  width: 30%;
-  margin: 20px;
+  width: 20%;
 
   @media (max-width: 768px) {
     width: 100%;
@@ -14,7 +13,7 @@
   gap: 20px;
 
   @media (max-width: 500px) {
-    height: 400px;
+    height: 200px;
     gap: 0px;
   }
 }

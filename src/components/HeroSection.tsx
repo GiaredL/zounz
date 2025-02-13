@@ -28,7 +28,7 @@ const HeroSection: FC<HeroSectionProps> = ({ title, description, subheading, chi
       ) : (
         <div className={styles.artist}>
           <div className={styles.artistDetails}>
-            <div>
+            <div className={styles.artistBody} style={{ backgroundImage: `url(${selectedArtist.image})` }}>
               <h1>{selectedArtist.name}</h1>
               <div className={styles.artistInfo}>
                 <div className={styles.artistLocation}>
@@ -44,13 +44,13 @@ const HeroSection: FC<HeroSectionProps> = ({ title, description, subheading, chi
               ))}
             </div>
           </div>
-          <div className={styles['artist-bio']}>
+          {/* <div className={styles['artist-bio']}>
             <img src={selectedArtist.image} alt={selectedArtist.name} />
             <div className={styles['artist-info']}>
               <h3>{selectedArtist.name}</h3>
               <p>{selectedArtist.bio}</p>
             </div>
-          </div>
+          </div> */}
         </div>
       )}
     </div>

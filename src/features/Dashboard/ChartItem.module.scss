@@ -1,19 +1,20 @@
 .chart-item {
-  margin: 10px 0;
+  margin-bottom: 10px;
   padding: 20px;
   height: 70px;
   flex-shrink: 0;
   border-radius: 6px;
-  background: linear-gradient(
-    324deg,
-    rgba(0, 14, 36, 1) 0%,
-    rgba(72, 9, 121, 1) 41%,
-    rgba(9, 16, 121, 1) 81%
-  );
+  // background: linear-gradient(324deg, rgba(0, 14, 36, 1) 0%, rgba(72, 9, 121, 1) 41%, rgba(9, 16, 121, 1) 81%);
+  background-color: #0c0c3f;
   display: flex;
   justify-content: space-between;
   cursor: pointer;
   transform-origin: left;
+  transition: background-color 0.15s ease;
+
+  &:hover {
+    background-color: #171772;
+  }
 }
 
 .item-details {

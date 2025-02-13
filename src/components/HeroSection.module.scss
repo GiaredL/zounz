@@ -1,22 +1,15 @@
 .hero {
   display: flex;
-  width: 70%;
-  height: auto;
-  background: linear-gradient(
-    324deg,
-    rgba(0, 14, 36, 1) 0%,
-    rgba(72, 9, 121, 1) 41%,
-    rgba(9, 16, 121, 1) 81%
-  );
+  width: 80%;
+  height: calc(100vh - 30px);
+  background: linear-gradient(324deg, rgba(0, 14, 36, 1) 0%, rgba(72, 9, 121, 1) 41%, rgba(9, 16, 121, 1) 81%);
   border-radius: 6px;
-  margin: 120px 0 60px 0;
-  overflow-y: auto;
-  max-height: calc(100vh - 120px);
+  overflow: hidden;
   min-height: 400px;
 
-  @media (max-width: 768px) {
+  @media (max-width: 500px) {
     width: 100%;
-    margin: 40px 0 40px 0;
+    margin: 10px 0 10px 0;
   }
 
   .hello {
@@ -29,6 +22,7 @@
     @media (max-width: 768px) {
       flex-direction: column;
       text-align: center;
+      justify-content: flex-start;
       padding: 20px;
     }
     img {
@@ -66,13 +60,9 @@
   display: flex;
   justify-content: space-between;
   width: 100%;
-  padding: 30px;
-  margin: 20px;
-  gap: 60px;
 
   @media (max-width: 768px) {
     // flex-direction: column;
-    text-align: center;
     padding: 0px;
     gap: 20px;
 
@@ -89,7 +79,7 @@
 
       .artistLocation {
         display: flex;
-        gap: 0px;
+        gap: 10px;
       }
     }
 
@@ -106,14 +96,46 @@
 
   .artistDetails {
     display: flex;
-    width: 60%;
+    width: 100%;
     flex-direction: column;
+  }
+
+  .artistBody {
+    height: 25%;
+    padding: 20px;
+    // background-image: url('../assets/curt.jpg');
+    background-size: cover;
+    background-position: center;
+    position: relative;
+
+    &::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.4);
+      z-index: 1;
+    }
+
+    h1,
+    .artistInfo {
+      position: relative;
+      z-index: 2;
+      color: white;
+    }
   }
 
   .artistInfo {
     display: flex;
     width: 100%;
-    gap: 40px;
+    gap: 20px;
+
+    @media (max-width: 500px) {
+      flex-direction: column;
+      gap: 0px;
+    }
   }
 
   .artistLocation {
@@ -124,11 +146,16 @@
   .artistSongs {
     display: flex;
     flex-direction: column;
-    width: 100%;
+    width: 50%;
     height: 100%;
     margin-top: 20px;
     border-radius: 6px;
     overflow-y: auto;
+    padding: 0px 20px 0px 20px;
+
+    @media (max-width: 500px) {
+      width: 100%;
+    }
   }
 
   .artist-info {
