@@ -1,9 +1,7 @@
 import { useState, useEffect } from 'react'
 import { ITestUsers } from '../types/models/ITestUsers'
-import { useAuth } from '../context/useAuth'
 
 const Profile = () => {
-  const { user } = useAuth()
   const [userInfo, setUserInfo] = useState<ITestUsers | null>(null)
   const [error, setError] = useState('')
   const [loading, setLoading] = useState(true)
