@@ -25,6 +25,7 @@ const SignIn = () => {
       })
 
       const data = await response.json()
+      console.log('logged out mfer', data)
 
       if (response.ok) {
         login(data.user)

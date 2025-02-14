@@ -31,12 +31,10 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         if (response.ok) {
           const data = await response.json()
           console.log('Auth check response:', data)
+          setIsAuthenticated(data.authenticated)
           if (data.user) {
-            setIsAuthenticated(true)
             setUser(data.user)
           } else {
-            console.log('No user data in response')
-            setIsAuthenticated(false)
             setUser(null)
           }
         } else {

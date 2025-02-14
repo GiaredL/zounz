@@ -6,6 +6,8 @@ import NotFound from './features/not-found'
 import SignIn from './auth/SignIn'
 import SignUp from './auth/SignUp'
 import Container from './layouts/Container'
+import { ProtectedRoute } from './components/ProtectedRoute'
+import Profile from './users/Profile'
 
 const App = () => {
   return (
@@ -17,7 +19,17 @@ const App = () => {
             <Route path="/about" element={<About />} />
             <Route path="/sign-in" element={<SignIn />} />
             <Route path="/sign-up" element={<SignUp />} />
+            <Route path="/profile" element={<Profile />} />
             <Route path="*" element={<NotFound />} />
+
+            <Route
+              path="/dashboard"
+              element={
+                <ProtectedRoute>
+                  <Home />
+                </ProtectedRoute>
+              }
+            />
           </Routes>
         </Container>
       </BrowserRouter>

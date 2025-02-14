@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useAuth } from '../context/useAuth'
-
+import styles from './SignUp.module.scss'
 const SignUp = () => {
   const [formData, setFormData] = useState({
     email: '',
@@ -66,6 +66,7 @@ const SignUp = () => {
         setError(data.message || 'Sign-up failed')
       }
     } catch (err) {
+      console.log(err)
       setError('Failed to connect to server')
     } finally {
       setLoading(false)
@@ -73,50 +74,55 @@ const SignUp = () => {
   }
 
   return (
-    <div>
-      <h1>Sign Up</h1>
-      <form onSubmit={handleSubmit}>
-        <input
-          type="email"
-          id="email"
-          name="email"
-          placeholder="email..."
-          value={formData.email}
-          onChange={handleChange}
-          required
-        />
-        <input
-          type="text"
-          id="username"
-          name="username"
-          placeholder="username..."
-          value={formData.username}
-          onChange={handleChange}
-          required
-        />
-        <input
-          type="password"
-          id="password"
-          name="password"
-          placeholder="password..."
-          value={formData.password}
-          onChange={handleChange}
-          required
-        />
-        <input
-          type="password"
-          id="confirm-password"
-          name="confirmPassword"
-          placeholder="Confirm password..."
-          value={formData.confirmPassword}
-          onChange={handleChange}
-          required
-        />
-        <button type="submit" disabled={loading}>
-          {loading ? 'Signing Up...' : 'Sign Up'}
-        </button>
-      </form>
-      {error && <p style={{ color: 'red' }}>{error}</p>}
+    <div className={styles['sign-up']}>
+      <div className={styles['container']}>
+        <h1>Sign Up</h1>
+        <form onSubmit={handleSubmit}>
+          <input
+            type="email"
+            id="email"
+            name="email"
+            placeholder="email..."
+            value={formData.email}
+            onChange={handleChange}
+            required
+          />
+          <input
+            type="text"
+            id="username"
+            name="username"
+            placeholder="username..."
+            value={formData.username}
+            onChange={handleChange}
+            required
+          />
+          <input
+            type="password"
+            id="password"
+            name="password"
+            placeholder="password..."
+            value={formData.password}
+            onChange={handleChange}
+            autoComplete="new-password"
+            className={error ? styles['error'] : ''}
+            required
+          />
+          <input
+            type="password"
+            id="confirm-password"
+            name="confirmPassword"
+            placeholder="Confirm password..."
+            value={formData.confirmPassword}
+            onChange={handleChange}
+            autoComplete="new-password"
+            required
+          />
+          <button type="submit" disabled={loading}>
+            {loading ? 'Signing Up...' : 'Sign Up'}
+          </button>
+        </form>
+        {error && <p style={{ color: 'white', marginTop: '20px' }}>{error}</p>}
+      </div>
     </div>
   )
 }
