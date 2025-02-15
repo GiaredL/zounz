@@ -1,15 +1,22 @@
 import { useState, useEffect } from 'react'
-import { ITestUsers } from '../types/models/ITestUsers'
+
+interface ProfileProps {
+  name: string
+  streams: number
+  bio: string
+  city: string
+  state: string
+}
 
 const Profile = () => {
-  const [userInfo, setUserInfo] = useState<ITestUsers | null>(null)
+  const [userInfo, setUserInfo] = useState<ProfileProps | null>(null)
   const [error, setError] = useState('')
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
     const fetchUserInfo = async () => {
       try {
-        const response = await fetch('http://localhost:5000/api/users/profile', {
+        const response = await fetch('http://localhost:5000/api/users/user', {
           method: 'GET',
           credentials: 'include',
           headers: {
@@ -52,6 +59,7 @@ const Profile = () => {
       </p>
       <p>Total Streams: {userInfo?.streams}</p>
       <p>Bio: {userInfo?.bio}</p>
+      <button>Upload Song</button>
     </div>
   )
 }

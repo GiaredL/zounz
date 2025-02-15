@@ -29,7 +29,7 @@ const SignIn = () => {
 
       if (response.ok) {
         login(data.user)
-        navigate('/dashboard')
+        navigate('/')
       } else {
         setError(data.message || 'Invalid credentials')
       }

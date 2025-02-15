@@ -13,6 +13,7 @@ interface HeroSectionProps {
 }
 
 const HeroSection: FC<HeroSectionProps> = ({ title, description, subheading, children, selectedArtist }) => {
+  console.log(selectedArtist)
   return (
     <div className={styles.hero}>
       {!selectedArtist ? (
@@ -39,9 +40,13 @@ const HeroSection: FC<HeroSectionProps> = ({ title, description, subheading, chi
               </div>
             </div>
             <div className={styles.artistSongs}>
-              {selectedArtist.songs.map(song => (
-                <SongItem key={song.id} selectedArtist={selectedArtist} song={song} />
-              ))}
+              {selectedArtist?.songs ? (
+                selectedArtist.songs.map(song => (
+                  <SongItem key={song.id} selectedArtist={selectedArtist} song={song} />
+                ))
+              ) : (
+                <p>No songs available</p>
+              )}
             </div>
           </div>
           {/* <div className={styles['artist-bio']}>

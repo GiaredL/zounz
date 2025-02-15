@@ -24,9 +24,7 @@ const SongItem: FC<SongItemProps> = ({ song }) => {
   }
   return (
     <div className={styles['song-item']}>
-      <div>
-        <img src={song.image} />
-      </div>
+      <div>{/* <img src={song.image} /> */}</div>
       <div className={styles['song-info']}>
         <h2>{song.title}</h2>
         <button onClick={togglePlay}>{isPlaying ? 'Pause' : 'Play'}</button>

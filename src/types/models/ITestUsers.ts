@@ -5,7 +5,7 @@ export interface ITestUsers {
   name: string
   state: string
   city: string
-  streams: string
+  streams: number
   location: { lat: number; lng: number }
   image: string
   bio: string
