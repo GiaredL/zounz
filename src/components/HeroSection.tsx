@@ -13,7 +13,9 @@ interface HeroSectionProps {
 }
 
 const HeroSection: FC<HeroSectionProps> = ({ title, description, subheading, children, selectedArtist }) => {
-  console.log(selectedArtist)
+  // const [searchResults, setSearchResults] = useState<any[] | null>(null)
+  // const [searchError, setSearchError] = useState<Error | null>(null)
+
   return (
     <div className={styles.hero}>
       {!selectedArtist ? (

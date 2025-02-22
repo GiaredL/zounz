@@ -1,12 +1,10 @@
 import styles from './Home.module.scss'
 import HeroSection from '../../components/HeroSection'
 import Dashboard from '../Dashboard'
-import { useState } from 'react'
-import { ITestUsers } from '../../types/models/ITestUsers'
+import { useSearch } from '../../context/useSearch'
 
 const Home = () => {
-  const [selectedArtist, setSelectedArtist] = useState<ITestUsers | null>(null)
-
+  const { selectedArtist, setSelectedArtist } = useSearch()
   return (
     <>
       <div className={styles.home}>

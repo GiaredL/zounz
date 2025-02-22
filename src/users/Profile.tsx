@@ -1,3 +1,4 @@
+import axios from 'axios'
 import { useState, useEffect } from 'react'
 
 interface ProfileProps {
@@ -6,12 +7,15 @@ interface ProfileProps {
   bio: string
   city: string
   state: string
+  image: string
 }
 
 const Profile = () => {
   const [userInfo, setUserInfo] = useState<ProfileProps | null>(null)
   const [error, setError] = useState('')
   const [loading, setLoading] = useState(true)
+  const [file, setFile] = useState<File | null>(null)
+  const [imageUrl, setImageUrl] = useState<string | null>(null)
 
   useEffect(() => {
     const fetchUserInfo = async () => {
@@ -25,7 +29,6 @@ const Profile = () => {
         })
 
         const data = await response.json()
-        console.log('Profile response:', data)
 
         if (response.ok) {
           setUserInfo(data.user)
@@ -51,6 +54,38 @@ const Profile = () => {
     return <div>{error}</div>
   }
 
+  const handleUpload = async () => {
+    if (!file) {
+      setError('Please select a file first')
+      return
+    }
+
+    setLoading(true)
+    try {
+      const formData = new FormData()
+      formData.append('file', file)
+
+      const response = await axios.post('http://localhost:5000/api/users/image', formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        },
+        withCredentials: true
+      })
+
+      if (response.data && response.data.file) {
+        setFile(null)
+        setError('')
+        const imageUrl = `http://localhost:5000/${response.data.file.path}`
+        console.log('Image URL:', imageUrl)
+        setImageUrl(imageUrl)
+      }
+    } catch (err) {
+      console.error('Upload error:', err)
+      setError('Failed to upload file')
+    } finally {
+      setLoading(false)
+    }
+  }
   return (
     <div>
       <h1>{userInfo?.name}</h1>
@@ -59,7 +94,17 @@ const Profile = () => {
       </p>
       <p>Total Streams: {userInfo?.streams}</p>
       <p>Bio: {userInfo?.bio}</p>
-      <button>Upload Song</button>
+      <img src={userInfo?.image} alt="Profile" />
+      <input type="file" onChange={e => setFile(e.target.files?.[0] || null)} />
+      <button onClick={handleUpload} disabled={loading || !file}>
+        {loading ? 'Uploading...' : 'Upload Song'}
+      </button>
+
+      {imageUrl && (
+        <div className="mt-4">
+          <img src={imageUrl} alt="Uploaded profile" className="max-w-xs rounded-lg shadow-md" />
+        </div>
+      )}
     </div>
   )
 }
