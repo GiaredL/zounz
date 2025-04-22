@@ -2,26 +2,22 @@ import styles from './Charts.module.scss'
 import ChartItem from './ChartItem'
 import { FC } from 'react'
 import { ITestUsers } from '../../types/models/ITestUsers'
-import { useUserInfo } from '../../hooks/useUserInfo'
 import { useSearch } from '../../context/useSearch'
+import { testUsers } from '../../testUsers'
 
 interface ChartsProps {
   setSelectedArtist: (artist: ITestUsers | null) => void
 }
 
 const Charts: FC<ChartsProps> = ({ setSelectedArtist }) => {
-  const { userData, isLoading } = useUserInfo()
   const { filteredResults } = useSearch()
-
-  const displayData = filteredResults || userData
+  const displayData = filteredResults || testUsers
 
   return (
     <div className={styles['charts-container']}>
-      {isLoading ? (
-        <div>Loading...</div>
-      ) : displayData ? (
+      {displayData ? (
         displayData.map((user: ITestUsers, rank: number) => (
-          <ChartItem key={rank} user={user} rank={rank} setSelectedArtist={setSelectedArtist} />
+          <ChartItem key={user.id} user={user} rank={rank + 1} setSelectedArtist={setSelectedArtist} />
         ))
       ) : (
         <div>No data available</div>

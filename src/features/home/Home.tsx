@@ -18,7 +18,7 @@ const Home = () => {
               ? `Streams: ${selectedArtist.streams}`
               : 'Try clicking on an artist to see their profile, or check out the about page!.'
           }
-          selectedArtist={selectedArtist}
+          // selectedArtist={selectedArtist}
         />
       </div>
     </>
