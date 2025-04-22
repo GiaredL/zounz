@@ -22,12 +22,19 @@ const SongItem: FC<SongItemProps> = ({ song }) => {
       setIsPlaying(!isPlaying)
     }
   }
+
   return (
     <div className={styles['song-item']}>
-      <div>{/* <img src={song.image} /> */}</div>
+      <div className={styles['song-image']}>
+        <img src={song.image} alt={song.title} />
+      </div>
       <div className={styles['song-info']}>
         <h2>{song.title}</h2>
-        <button onClick={togglePlay}>{isPlaying ? 'Pause' : 'Play'}</button>
+        <p className={styles.album}>{song.album}</p>
+        <p className={styles.streams}>{song.streams.toLocaleString()} streams</p>
+        <button className={styles['play-button']} onClick={togglePlay}>
+          {isPlaying ? 'Pause' : 'Play'}
+        </button>
         <audio ref={audioRef} src={song.audioUrl} onEnded={() => setIsPlaying(false)} />
       </div>
     </div>

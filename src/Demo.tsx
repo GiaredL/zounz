@@ -105,7 +105,7 @@
 //     // })
 //   }
 
-//   const getPopularityScore = async (trackId: string, accessToken: string) => {
+//   const getPopularityScore = async (trackId: string, accessToken: string): Promise<number> => {
 //     const response = await fetch(`https://api.spotify.com/v1/tracks/${trackId}`, {
 //       method: 'GET',
 //       headers: {
@@ -114,11 +114,11 @@
 //     })
 
 //     if (!response.ok) {
-//       throw new Error('could not find album tracks')
+//       throw new Error('could not find track popularity')
 //     }
 
 //     const trackData = await response.json()
-//     console.log(trackData.popularity)
+//     return trackData.popularity
 //   }
 
 //   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -176,9 +176,22 @@
 
 //   useEffect(() => {
 //     const fetchPopularity = async () => {
-//       const accessToken = await getAccessToken(CLIENT_ID, CLIENT_SECRET)
-//       for (const track of foundTrackIds) {
-//         await getPopularityScore(track, accessToken)
+//       try {
+//         const accessToken = await getAccessToken(CLIENT_ID, CLIENT_SECRET)
+//         let totalPopularity = 0
+//         let tracksProcessed = 0
+
+//         for (const trackId of foundTrackIds) {
+//           const score = await getPopularityScore(trackId, accessToken)
+//           totalPopularity += score
+//           tracksProcessed++
+//         }
+
+//         // Calculate average popularity if there are tracks
+//         const averagePopularity = tracksProcessed > 0 ? Math.round(totalPopularity / tracksProcessed) : 0
+//         setPopularityScore(averagePopularity)
+//       } catch (error: any) {
+//         setError(error.message)
 //       }
 //     }
 
@@ -186,24 +199,6 @@
 //       fetchPopularity()
 //     }
 //   }, [foundTrackIds])
-
-//   // useEffect(() => {
-//   //   const fetchPopularity = async () => {
-//   //     const accessToken = await getAccessToken(CLIENT_ID, CLIENT_SECRET)
-//   //     let totalPopularity = 0
-
-//   //     for (const trackId of foundTrackIds) {
-//   //       const trackPopularity = await getPopularityScore(trackId, accessToken)
-//   //       totalPopularity += trackPopularity
-//   //     }
-
-//   //     setPopularityScore(totalPopularity)
-//   //   }
-
-//   //   if (foundTrackIds.length > 0) {
-//   //     fetchPopularity()
-//   //   }
-//   // }, [foundTrackIds])
 
 //   return (
 //     <div>
