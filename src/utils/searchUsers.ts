@@ -1,16 +1,17 @@
-import { calculateDistance } from './calculateDistance'
-import { testUsers } from '../testUsers'
-import { ITestUsers } from '../types/models/ITestUsers'
+import { ITestUsers } from "../types/models/ITestUsers";
+import { calculateDistance } from "./calculateDistance";
 
 export const searchUsers = (
+  users: ITestUsers[],
   city: string,
-  userLocation: { lat: number; lng: number },
-  maxDistance: number
+  maxDistance: number,
+  userLocation: { lat: number; lng: number }
 ): ITestUsers[] => {
-  const filteredUsers = testUsers.filter(user => {
-    const distance = calculateDistance(user.location, userLocation)
-    return user.state.toLowerCase() === city.toLowerCase() && distance <= maxDistance
-  })
-
-  return filteredUsers
-}
+  return users.filter((user) => {
+    if (!user.location || !user.state) return false;
+    const distance = calculateDistance(user.location, userLocation);
+    return (
+      user.state.toLowerCase() === city.toLowerCase() && distance <= maxDistance
+    );
+  });
+};
