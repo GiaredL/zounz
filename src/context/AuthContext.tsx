@@ -1,87 +1,78 @@
-import { createContext, useState, ReactNode, useEffect } from 'react'
-import { ITestUsers } from '../types/models/ITestUsers'
+import { createContext, useState, ReactNode, useEffect } from "react";
+import { ITestUsers } from "../types/models/ITestUsers";
+import api from "../api/config";
 
 interface AuthContextType {
-  isAuthenticated: boolean
-  user: ITestUsers | null
-  loading: boolean
-  login: (userData: ITestUsers) => void
-  logout: () => void
+  isAuthenticated: boolean;
+  user: ITestUsers | null;
+  loading: boolean;
+  login: (userData: ITestUsers) => void;
+  logout: () => void;
 }
 
-export const AuthContext = createContext<AuthContextType | undefined>(undefined)
+export const AuthContext = createContext<AuthContextType | undefined>(
+  undefined
+);
 
 export function AuthProvider({ children }: { children: ReactNode }) {
-  const [isAuthenticated, setIsAuthenticated] = useState(false)
-  const [user, setUser] = useState<ITestUsers | null>(null)
-  const [loading, setLoading] = useState(true)
+  const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
+  const [user, setUser] = useState<ITestUsers | null>(null);
+  const [loading, setLoading] = useState(true);
 
+  // Check session status on mount
   useEffect(() => {
-    const checkAuth = async () => {
+    const checkSession = async () => {
       try {
-        console.log('Checking authentication...')
-        const response = await fetch('http://localhost:5000/api/session/check', {
-          method: 'GET',
-          credentials: 'include',
-          headers: {
-            'Content-Type': 'application/json'
-          }
-        })
-
-        if (response.ok) {
-          const data = await response.json()
-          console.log('Auth check response:', data)
-          setIsAuthenticated(data.authenticated)
-          if (data.user) {
-            setUser(data.user)
-          } else {
-            setUser(null)
-          }
-        } else {
-          console.log('Auth check failed with status:', response.status)
-          setIsAuthenticated(false)
-          setUser(null)
+        const response = await api.get("/session/check");
+        if (response.data && response.data.authenticated) {
+          setIsAuthenticated(true);
+          setUser(response.data.user);
         }
       } catch (err) {
-        console.error('Auth check failed:', err)
-        setIsAuthenticated(false)
-        setUser(null)
+        setIsAuthenticated(false);
+        setUser(null);
       } finally {
-        setLoading(false)
+        setLoading(false);
       }
+    };
+
+    checkSession();
+  }, []);
+
+  const login = async (userData: ITestUsers) => {
+    try {
+      const response = await api.post("/session/signin", {
+        userName: userData.username,
+        password: userData.password,
+      });
+
+      if (response.data && response.data.user) {
+        setIsAuthenticated(true);
+        setUser(response.data.user);
+      }
+    } catch (error) {
+      setIsAuthenticated(false);
+      setUser(null);
+      throw error;
     }
-
-    checkAuth()
-  }, [])
-
-  const login = (userData: ITestUsers) => {
-    setIsAuthenticated(true)
-    setUser(userData)
-  }
+  };
 
   const logout = async () => {
     try {
-      const response = await fetch('http://localhost:5000/api/session/signout', {
-        method: 'POST',
-        credentials: 'include'
-      })
-
-      if (response.ok) {
-        setIsAuthenticated(false)
-        setUser(null)
-      }
-    } catch (err) {
-      console.error('Logout failed:', err)
+      await api.post("/session/signout");
+    } finally {
+      setIsAuthenticated(false);
+      setUser(null);
     }
-  }
+  };
 
   const value = {
     isAuthenticated,
     user,
     loading,
     login,
-    logout
-  }
+    logout,
+  };
 
-  return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>
+  return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 }

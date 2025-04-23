@@ -1,112 +1,92 @@
-import axios from 'axios'
-import { useState, useEffect } from 'react'
-
-interface ProfileProps {
-  name: string
-  streams: number
-  bio: string
-  city: string
-  state: string
-  image: string
-}
+import { useState } from "react";
+import api from "../api/config";
+import { AxiosError } from "axios";
+import { useAuth } from "../context/useAuth";
 
 const Profile = () => {
-  const [userInfo, setUserInfo] = useState<ProfileProps | null>(null)
-  const [error, setError] = useState('')
-  const [loading, setLoading] = useState(true)
-  const [file, setFile] = useState<File | null>(null)
-  const [imageUrl, setImageUrl] = useState<string | null>(null)
+  const { user } = useAuth();
+  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [file, setFile] = useState<File | null>(null);
+  const [imageUrl, setImageUrl] = useState<string | null>(null);
 
-  useEffect(() => {
-    const fetchUserInfo = async () => {
-      try {
-        const response = await fetch('http://localhost:5000/api/users/user', {
-          method: 'GET',
-          credentials: 'include',
-          headers: {
-            'Content-Type': 'application/json'
-          }
-        })
-
-        const data = await response.json()
-
-        if (response.ok) {
-          setUserInfo(data.user)
-        } else {
-          setError(data.message || 'Failed to fetch user information')
-        }
-      } catch (err) {
-        console.error('Profile fetch error:', err)
-        setError('Failed to connect to server')
-      } finally {
-        setLoading(false)
-      }
-    }
-
-    fetchUserInfo()
-  }, [])
-
-  if (loading) {
-    return <div>Loading...</div>
-  }
-
-  if (error) {
-    return <div>{error}</div>
+  if (!user) {
+    return <div>Not authenticated</div>;
   }
 
   const handleUpload = async () => {
     if (!file) {
-      setError('Please select a file first')
-      return
+      setError("Please select a file first");
+      return;
     }
 
-    setLoading(true)
+    setLoading(true);
     try {
-      const formData = new FormData()
-      formData.append('file', file)
+      const formData = new FormData();
+      formData.append("file", file);
 
-      const response = await axios.post('http://localhost:5000/api/users/image', formData, {
+      const response = await api.post("/users/image", formData, {
         headers: {
-          'Content-Type': 'multipart/form-data'
+          "Content-Type": "multipart/form-data",
         },
-        withCredentials: true
-      })
+      });
 
       if (response.data && response.data.file) {
-        setFile(null)
-        setError('')
-        const imageUrl = `http://localhost:5000/${response.data.file.path}`
-        console.log('Image URL:', imageUrl)
-        setImageUrl(imageUrl)
+        setFile(null);
+        setError("");
+        const baseUrl =
+          api.defaults.baseURL || "http://54.241.113.130:5000/api";
+        const imageUrl = `${baseUrl.replace("/api", "")}/${
+          response.data.file.path
+        }`;
+        console.log("Image URL:", imageUrl);
+        setImageUrl(imageUrl);
       }
     } catch (err) {
-      console.error('Upload error:', err)
-      setError('Failed to upload file')
+      console.error("Upload error:", err);
+      const axiosError = err as AxiosError<{ message: string }>;
+      setError(axiosError.response?.data?.message || "Failed to upload file");
     } finally {
-      setLoading(false)
+      setLoading(false);
     }
-  }
+  };
+
   return (
     <div>
-      <h1>{userInfo?.name}</h1>
+      <h1>{user.name || user.username}</h1>
       <p>
-        Location: {userInfo?.city}, {userInfo?.state}
+        Location: {user.city || "Not specified"},{" "}
+        {user.state || "Not specified"}
       </p>
-      <p>Total Streams: {userInfo?.streams}</p>
-      <p>Bio: {userInfo?.bio}</p>
-      <img src={userInfo?.image} alt="Profile" />
-      <input type="file" onChange={e => setFile(e.target.files?.[0] || null)} />
-      <button onClick={handleUpload} disabled={loading || !file}>
-        {loading ? 'Uploading...' : 'Upload Song'}
-      </button>
+      <p>Total Streams: {user.streams || 0}</p>
+      <p>Bio: {user.bio || "No bio yet"}</p>
+      {user.image && <img src={user.image} alt="Profile" />}
+
+      <div>
+        <h2>Upload Profile Picture</h2>
+        <input
+          type="file"
+          onChange={(e) => setFile(e.target.files?.[0] || null)}
+          accept="image/*"
+        />
+        <button onClick={handleUpload} disabled={loading || !file}>
+          {loading ? "Uploading..." : "Upload Image"}
+        </button>
+      </div>
 
       {imageUrl && (
         <div className="mt-4">
-          <img src={imageUrl} alt="Uploaded profile" className="max-w-xs rounded-lg shadow-md" />
+          <img
+            src={imageUrl}
+            alt="Uploaded profile"
+            className="max-w-xs rounded-lg shadow-md"
+          />
         </div>
       )}
-    </div>
-  )
-}
 
-export default Profile
+      {error && <p style={{ color: "red" }}>{error}</p>}
+    </div>
+  );
+};
+
+export default Profile;
