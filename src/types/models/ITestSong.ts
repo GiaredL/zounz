@@ -1,8 +1,8 @@
 export interface ITestSong {
-  id: number
-  title: string
-  album: string
-  image: string
-  streams: number
-  audioUrl: string
+  id?: number;
+  title: string;
+  album: string;
+  streams: number;
+  audioUrl: string;
+  image: string;
 }
