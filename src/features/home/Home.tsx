@@ -16,7 +16,7 @@ const Home = () => {
           description={
             selectedArtist
               ? `Streams: ${selectedArtist.streams}`
-              : 'Try clicking on an artist to see their profile, or check out the about page!.'
+              : 'Try clicking on an artist to see their profile, or check out the about page! You can also search for an artist by name, but be sure to spell it right! This site is still under construction, so please be patient and check back soon!,'
           }
           // selectedArtist={selectedArtist}
         />

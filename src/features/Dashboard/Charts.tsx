@@ -16,8 +16,8 @@ const Charts: FC<ChartsProps> = ({ setSelectedArtist }) => {
   return (
     <div className={styles['charts-container']}>
       {displayData ? (
-        displayData.map((user: ITestUsers, rank: number) => (
-          <ChartItem key={user.id} user={user} rank={rank + 1} setSelectedArtist={setSelectedArtist} />
+        displayData.map((user: ITestUsers, index: number) => (
+          <ChartItem key={user.id} user={user} rank={index} setSelectedArtist={setSelectedArtist} />
         ))
       ) : (
         <div>No data available</div>
